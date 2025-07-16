@@ -25,3 +25,30 @@
   background-color: var(--accent-red);
   color: white;
 }
+
+.cart-flyout {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.cart-summary {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.cart-actions button {
+  margin-right: 0.5rem;
+}

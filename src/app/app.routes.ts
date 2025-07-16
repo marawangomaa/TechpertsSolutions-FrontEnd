@@ -10,11 +10,10 @@ export const routes: Routes = [
   { path: 'contact', loadComponent: () => import('./components/contact/contact.component').then(m => m.ContactComponent), title: 'Contact Page' },
   { path: 'login', loadComponent: () => import('./components/log-in/log-in.component').then(m => m.LogInComponent), title: 'LogIn Page' },
   { path: 'regester', loadComponent: () => import('./components/regester/regester.component').then(m => m.RegesterComponent), title: 'Regester Page' },
-
+  {path: 'cart',loadComponent: ()=> import('./components/cart/cart.component').then(m=>m.CartComponent)},
   { path: 'selector', loadComponent: () => import('./components/pc-build/selector/selector.component').then(m => m.SelectorComponent), title: 'Component Selector' },
   { path: 'categories', loadComponent: () => import('./components/categories/categories.component').then(m => m.CategoriesComponent), title: 'Product Categories' },
   { path: 'category-details/:id', loadComponent: () => import('./components/categories/category-details/category-details.component').then(m => m.CategoryDetailsComponent), title: 'Category Products' },
-
   {
     path: 'dashboard',
     loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent),

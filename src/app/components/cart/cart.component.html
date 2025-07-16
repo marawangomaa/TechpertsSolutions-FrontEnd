@@ -1,0 +1,29 @@
+<!-- Cart Flyout Dropdown -->
+<div class="cart-flyout" *ngIf="CartItems.length > 0; else emptyCart">
+  <h4 class="cart-title">Your Cart</h4>
+
+  <div class="cart-items">
+    <div class="cart-item" *ngFor="let item of CartItems">
+      <div class="item-details">
+        <strong>{{ item.Product?.name }}</strong><br />
+        <small>Qty: {{ item.quantity }}</small><br />
+        <small>Price: {{ item.Product?.price | currency:'EGP' }}</small>
+      </div>
+      <button (click)="removeItem(item.productId)">✕</button>
+    </div>
+  </div>
+
+  <div class="cart-summary">
+    <p>Total: {{ getTotal() | currency:'EGP' }}</p>
+  </div>
+
+  <div class="cart-actions">
+    <button (click)="clearCart()">Clear</button>
+    <button (click)="checkout()">Checkout</button>
+  </div>
+</div>
+
+<!-- Empty Cart Message -->
+<ng-template #emptyCart>
+  <p class="empty-cart">🛒 Your cart is empty.</p>
+</ng-template>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IProduct } from './../../../Interfaces/iproduct';
+import { IProduct } from '../../../Interfaces/Iproduct';
 
 @Component({
   selector: 'app-selector',

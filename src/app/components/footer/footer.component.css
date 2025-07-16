@@ -1,3 +1,8 @@
+:root
+{
+  --font-gray:#e5e3e3;
+  --font-white:#fff;
+}
 .footer-bg {
   background: var(--bg-color);
   background-image: url('../../../assets/Images/footer-bg.jpg');
@@ -9,21 +14,21 @@
 
 /* Text and layout */
 .footer-description {
-  color: var(--text-secondary);
+  color: var(--font-gray);
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
 .footer-heading {
   font-size: 1.25rem;
-  color: var(--text-primary);
+  color: var(--font-white);
   margin-bottom: 1rem;
   font-weight: 600;
 }
 
 .footer-links li {
   padding-bottom: 0.5rem;
-  color: var(--text-secondary);
+  color: var(--font-gray);
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -74,7 +79,7 @@
 
 .footer-copy {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  color: var(--font-gray);
   margin-top: 1rem;
 }
 

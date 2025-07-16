@@ -1,1 +1,53 @@
-<p>blog works!</p>
+<div class="container">
+  <section class="headline-section text-center my-5">
+    <h1>Latest Computer Hardware</h1>
+    <p>Discover the newest parts, benchmarks, and expert reviews to build your ultimate setup.</p>
+    <button class="btn btn-dark mt-3">Explore Articles</button>
+  </section>
+
+  <section>
+    <h2>Featured Articles</h2>
+    <div class="row">
+      @for (article of featuredArticles; track article.title) {
+        <div class="col-md-4">
+          <div class="card featured-article mb-4">
+            <img [src]="article.img" class="card-img-top" [alt]="article.title" />
+            <div class="card-body">
+              <p class="text-muted">{{ article.date }}</p>
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="card-text">{{ article.description }}</p>
+              <a href="#" class="btn btn-outline-primary btn-sm">Read More</a>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <p class="text-muted ml-3">No articles available at the moment.</p>
+      }
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <h2>Browse by Category</h2>
+    <div class="row text-center">
+      @for (category of categories; track category.title) {
+        <div class="col-md-3">
+          <div class="card category-card p-3 mb-4">
+            <h5>{{ category.title }}</h5>
+            <p>{{ category.description }}</p>
+          </div>
+        </div>
+      } @empty {
+        <p class="text-muted ml-3">No categories available.</p>
+      }
+    </div>
+  </section>
+
+  <section class="subscribe-section mt-5 text-center" style="display: none;">
+    <h2>Stay Updated</h2>
+    <form class="form-inline justify-content-center mt-3">
+      <input type="email" class="form-control mr-2" placeholder="Enter your email" />
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+  </section>
+</div>
+

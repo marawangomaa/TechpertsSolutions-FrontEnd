@@ -7,44 +7,60 @@
     </a>
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
-      
+
       <!-- Center: Navigation Links -->
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex flex-row justify-content-center">
-        <li class="nav-item"><a class="nav-link text-white" routerLink="home" routerLinkActive="router-link-active">Home</a></li>
-        <li class="nav-item"><a class="nav-link text-white" routerLink="selector" routerLinkActive="router-link-active">PC Build</a></li>
-        <li class="nav-item"><a class="nav-link text-white" routerLink="categories" routerLinkActive="router-link-active">Categories</a></li>
-        <li class="nav-item"><a class="nav-link text-white" routerLink="products" routerLinkActive="router-link-active">Products</a></li>
-        <li class="nav-item"><a class="nav-link text-white" routerLink="blog" routerLinkActive="router-link-active">Blog</a></li>
-        <li class="nav-item"><a class="nav-link text-white" routerLink="about" routerLinkActive="router-link-active">About</a></li>
-        <li class="nav-item"><a class="nav-link text-white" routerLink="contact" routerLinkActive="router-link-active">Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="home"
+            routerLinkActive="router-link-active">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="selector"
+            routerLinkActive="router-link-active">PC Build</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="categories"
+            routerLinkActive="router-link-active">Categories</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="products"
+            routerLinkActive="router-link-active">Products</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="blog"
+            routerLinkActive="router-link-active">Blog</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="about"
+            routerLinkActive="router-link-active">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" routerLink="contact"
+            routerLinkActive="router-link-active">Contact</a></li>
       </ul>
+
+
+      <button (click)="toggleCartFlyout()">🛒 Cart ({{ cartCount }})</button>
+      
+
 
       <!-- Right: Actions -->
       <div class="d-flex align-items-center">
         <button class="btn btn-outline-light me-2" (click)="toggleDarkMode()">
-  <i [class]="iconClass"></i>
-</button>
+          <i [class]="iconClass"></i>
+        </button>
 
 
         @if (isLogedIn) {
-          <div class="dropdown">
-            <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle"></i> Marawan
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
-            </ul>
-          </div>
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle"></i> Marawan
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+          </ul>
+        </div>
         }
         @else if (!isLogedIn) {
-          <a class="btn btn-outline-light mx-2" routerLink="login" routerLinkActive="router-link-active">LogIn</a>
-          <a class="btn btn-outline-light mx-2" routerLink="regester" routerLinkActive="router-link-active">Register</a>
+        <a class="btn btn-outline-light mx-2" routerLink="login" routerLinkActive="router-link-active">LogIn</a>
+        <a class="btn btn-outline-light mx-2" routerLink="regester" routerLinkActive="router-link-active">Register</a>
         }
       </div>
     </div>
   </div>
 </nav>
+
+
