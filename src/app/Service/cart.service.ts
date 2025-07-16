@@ -39,55 +39,55 @@ export class CartService {
   getCart(): Observable<CartItem[]> {
     if (!this.isBrowser) return of([]); // SSR fallback
 
-    const customerId = this.getCustomerId();
-    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    const userId = this.getCustomerId();
+    if (!userId) return throwError(() => new Error('Customer ID not found. Please log in.'));
     
-    return this.http.get<CartItem[]>(`${this._baseUrl}/Cart/${customerId}`);
+    return this.http.get<CartItem[]>(`${this._baseUrl}/Cart/${userId}`);
   }
 
   addItem(item: CartItem): Observable<any> {
     if (!this.isBrowser) return throwError(() => new Error('Cannot add item on server.'));
 
-    const customerId = this.getCustomerId();
-    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    const userId = this.getCustomerId();
+    if (!userId) return throwError(() => new Error('Customer ID not found. Please log in.'));
 
-    return this.http.post(`${this._baseUrl}/Cart/${customerId}/items`, item);
+    return this.http.post(`${this._baseUrl}/Cart/${userId}/items`, item);
   }
 
   updateItem(item: CartItem): Observable<any> {
     if (!this.isBrowser) return throwError(() => new Error('Cannot update item on server.'));
 
-    const customerId = this.getCustomerId();
-    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    const userId = this.getCustomerId();
+    if (!userId) return throwError(() => new Error('Customer ID not found. Please log in.'));
 
-    return this.http.put(`${this._baseUrl}/Cart/${customerId}/items`, item);
+    return this.http.put(`${this._baseUrl}/Cart/${userId}/items`, item);
   }
 
   removeItem(productId: string): Observable<any> {
     if (!this.isBrowser) return throwError(() => new Error('Cannot remove item on server.'));
 
-    const customerId = this.getCustomerId();
-    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    const userId = this.getCustomerId();
+    if (!userId) return throwError(() => new Error('Customer ID not found. Please log in.'));
 
-    return this.http.delete(`${this._baseUrl}/Cart/${customerId}/items/${productId}`);
+    return this.http.delete(`${this._baseUrl}/Cart/${userId}/items/${productId}`);
   }
 
   clearCart(): Observable<any> {
     if (!this.isBrowser) return throwError(() => new Error('Cannot clear cart on server.'));
 
-    const customerId = this.getCustomerId();
-    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    const userId = this.getCustomerId();
+    if (!userId) return throwError(() => new Error('Customer ID not found. Please log in.'));
 
-    return this.http.delete(`${this._baseUrl}/Cart/${customerId}/clear`);
+    return this.http.delete(`${this._baseUrl}/Cart/${userId}/clear`);
   }
 
   checkout(): Observable<any> {
     if (!this.isBrowser) return throwError(() => new Error('Cannot checkout on server.'));
 
-    const customerId = this.getCustomerId();
-    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    const userId = this.getCustomerId();
+    if (!userId) return throwError(() => new Error('Customer ID not found. Please log in.'));
 
-    return this.http.post(`${this._baseUrl}/Cart/${customerId}/checkout`, {});
+    return this.http.post(`${this._baseUrl}/Cart/${userId}/checkout`, {});
   }
 
   calculateTotal(cartItems: CartItem[]): number {

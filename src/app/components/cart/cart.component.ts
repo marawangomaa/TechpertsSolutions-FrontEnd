@@ -1,3 +1,4 @@
+import { CartItem } from './../../Service/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { ICartItem } from '../../Interfaces/ICartItem';
 import { CartService } from '../../Service/cart.service';
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-    CartItems:ICartItem[] = []
+    CartItems:CartItem[] = []
 
   constructor(private cartService: CartService) {}
 
@@ -20,10 +21,27 @@ export class CartComponent implements OnInit {
   }
 
   loadCart(): void {
-    this.cartService.getCart().subscribe(items => {
-      this.CartItems = items;
-    });
-  }
+  this.cartService.getCart().subscribe({
+    next: (res: any) => {
+      const rawItems = res?.data?.cartItems || [];
+
+      this.CartItems = rawItems.map((item: any) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        product: {
+          id: item.productId,
+          name: item.productName,
+          price: item.price,
+          imageUrl: item.imageUrl,
+        }
+      }));
+    },
+    error: (err) => {
+      console.log(err);
+    },
+  });
+}
+
 
   addToCart(productId: string, quantity: number): void {
     const item: ICartItem = { productId, quantity };
@@ -50,11 +68,12 @@ export class CartComponent implements OnInit {
   }
 
   getTotal(): number {
-    return this.CartItems.reduce(
-      (sum, item) => sum + (item.Product?.price ?? 0) * item.quantity,
-      0
-    );
-  }
+  return this.CartItems.reduce(
+    (sum, item) => sum + (item.product?.price ?? 0) * item.quantity,
+    0
+  );
+}
+
   hasDiscount(item: ICartItem): boolean {
   return (
     item.Product?.discountPrice !== undefined &&

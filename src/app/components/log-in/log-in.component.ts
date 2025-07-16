@@ -1,5 +1,3 @@
-// src/app/components/log-in/log-in.component.ts
-import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -51,7 +49,7 @@ export class LogInComponent {
           console.log('Login response:', res);
 
           const token = res.data?.token;
-          const customerId = res.data?.userId;
+          const customerId = res.data?.customerId;
           const userName = res.data?.userName;
 
           if (token && customerId) {

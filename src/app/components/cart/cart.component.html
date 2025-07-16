@@ -6,34 +6,18 @@
     <div class="cart-item row g-3 align-items-center mb-3 border-bottom pb-3" *ngFor="let item of CartItems">
       <!-- Image -->
       <div class="col-3 col-md-2">
-        <img [src]="item.Product?.imageUrl" class="img-fluid rounded" alt="{{ item.Product?.name }}" />
+        <img [src]="item.product?.imageUrl" class="img-fluid rounded" alt="{{ item.product?.name || 'Product Image' }}" />
       </div>
 
       <!-- Product Info -->
       <div class="col-9 col-md-10">
-        <h6 class="mb-1">{{ item.Product?.name }}</h6>
-        <div class="text-muted small">
-          <p class="mb-1">Category: {{ item.Product?.categoryName || 'N/A' }}</p>
-          <p class="mb-1">Subcategory: {{ item.Product?.subCategoryName }}</p>
-          <p class="mb-1">Status:
-            <span [ngClass]="{
-              'text-success': item.Product?.status === 'Available',
-              'text-danger': item.Product?.status === 'OutOfStock',
-              'text-muted': item.Product?.status === 'None'
-            }">
-              {{ item.Product?.status }}
-            </span>
-          </p>
-        </div>
+        <h6 class="mb-1">{{ item.product?.name }}</h6>
 
         <div class="d-flex flex-wrap align-items-center small mt-2">
           <span class="me-3 mb-1">Qty: <strong>{{ item.quantity }}</strong></span>
           <span class="me-3 mb-1">Price:
-            <strong class="text-decoration-line-through text-muted" *ngIf="hasDiscount(item)">
-              {{ item.Product?.price | currency:'EGP' }}
-            </strong>
             <strong class="text-success ms-1">
-              {{ (item.Product?.discountPrice || item.Product?.price) | currency:'EGP' }}
+              {{ item.product?.price | currency:'EGP' }}
             </strong>
           </span>
         </div>
