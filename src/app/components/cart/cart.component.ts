@@ -55,4 +55,11 @@ export class CartComponent implements OnInit {
       0
     );
   }
+  hasDiscount(item: ICartItem): boolean {
+  return (
+    item.Product?.discountPrice !== undefined &&
+    item.Product?.price !== undefined &&
+    item.Product.discountPrice < item.Product.price
+  );
+}
 }

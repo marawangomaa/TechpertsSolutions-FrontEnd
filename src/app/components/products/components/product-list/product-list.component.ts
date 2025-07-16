@@ -1,14 +1,8 @@
-<<<<<<< Updated upstream
   import { Component, OnInit } from '@angular/core';
   import { ProductService } from './../../../../Service/product.service';
-  import { IProduct } from '../../../../Interfaces/iproduct';
+  import { IProduct } from '../../../../Interfaces/IProduct';
   import { ProductItemComponent } from "../product-item/product-item.component";
 import { NgFor } from '@angular/common';
-=======
-import { Component } from '@angular/core';
-import { IProduct } from '../../../../Interfaces/IProduct';
-import { ProductItemComponent } from "../product-item/product-item.component";
->>>>>>> Stashed changes
 
   @Component({
     selector: 'app-product-list',

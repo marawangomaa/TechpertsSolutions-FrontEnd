@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< Updated upstream
-=======
-import { IProduct } from '../../Interfaces/IProduct';
->>>>>>> Stashed changes
 import { ProductListComponent } from "./components/product-list/product-list.component";
-import { IProduct } from '../../Interfaces/iproduct';
+import { IProduct } from '../../Interfaces/IProduct';
 
 @Component({
   selector: 'app-products',

@@ -1,4 +1,5 @@
-<div class="cart-flyout p-4 var(--card-bg) border rounded shadow-lg" *ngIf="CartItems.length > 0; else emptyCart">
+<div class="cart-flyout p-4 border rounded shadow-lg" *ngIf="CartItems.length > 0; else emptyCart"
+  style="background-color: var(--card-bg);">
   <h4 class="cart-title mb-4 border-bottom pb-2">🛍️ Your Cart</h4>
 
   <div class="cart-items mb-4">
@@ -10,14 +11,33 @@
 
       <!-- Product Info -->
       <div class="col-9 col-md-10">
-        <h6 class="mb-1">{{ item.Product?.title || item.Product?.name }}</h6>
-        <p class="mb-1 text-muted small">{{ item.Product?.description }}</p>
-        <div class="d-flex flex-wrap align-items-center small">
-          <span class="badge bg-primary me-2 mb-1">{{ item.Product?.category }}</span>
-          <span class="me-3 mb-1">Qty: <strong>{{ item.quantity }}</strong></span>
-          <span class="me-3 mb-1">Price: <strong>{{ item.Product?.price | currency:'EGP' }}</strong></span>
-          <a *ngIf="item.Product?.link" [href]="item.Product?.link" class="text-decoration-none text-info" target="_blank">View Product 🔗</a>
+        <h6 class="mb-1">{{ item.Product?.name }}</h6>
+        <div class="text-muted small">
+          <p class="mb-1">Category: {{ item.Product?.categoryName || 'N/A' }}</p>
+          <p class="mb-1">Subcategory: {{ item.Product?.subCategoryName }}</p>
+          <p class="mb-1">Status:
+            <span [ngClass]="{
+              'text-success': item.Product?.status === 'Available',
+              'text-danger': item.Product?.status === 'OutOfStock',
+              'text-muted': item.Product?.status === 'None'
+            }">
+              {{ item.Product?.status }}
+            </span>
+          </p>
         </div>
+
+        <div class="d-flex flex-wrap align-items-center small mt-2">
+          <span class="me-3 mb-1">Qty: <strong>{{ item.quantity }}</strong></span>
+          <span class="me-3 mb-1">Price:
+            <strong class="text-decoration-line-through text-muted" *ngIf="hasDiscount(item)">
+              {{ item.Product?.price | currency:'EGP' }}
+            </strong>
+            <strong class="text-success ms-1">
+              {{ (item.Product?.discountPrice || item.Product?.price) | currency:'EGP' }}
+            </strong>
+          </span>
+        </div>
+
         <button class="btn btn-sm btn-outline-danger mt-2" (click)="removeItem(item.productId)">Remove ✕</button>
       </div>
     </div>
@@ -25,7 +45,9 @@
 
   <!-- Summary -->
   <div class="cart-summary mb-3 text-end">
-    <p class="fs-5 fw-semibold">Total: <span class="text-success">{{ getTotal() | currency:'EGP' }}</span></p>
+    <p class="fs-5 fw-semibold">Total:
+      <span class="text-success">{{ getTotal() | currency:'EGP' }}</span>
+    </p>
   </div>
 
   <!-- Actions -->
