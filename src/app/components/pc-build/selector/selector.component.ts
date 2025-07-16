@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+<<<<<<< Updated upstream
 import { IProduct } from '../../../Interfaces/iproduct';
 import { NgClass } from '@angular/common';
+=======
+import { IProduct } from '../../../Interfaces/IProduct';
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-selector',

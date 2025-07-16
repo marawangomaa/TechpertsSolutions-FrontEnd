@@ -1,4 +1,5 @@
-import { IProduct } from "./Iproduct";
+import { IProduct } from "./IProduct";
+
 
 export interface ICartItem
 {

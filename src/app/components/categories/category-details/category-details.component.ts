@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+<<<<<<< Updated upstream
 import { IProduct } from '../../../Interfaces/iproduct';
+=======
+import { IProduct } from '../../../Interfaces/IProduct';
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-category-details',
