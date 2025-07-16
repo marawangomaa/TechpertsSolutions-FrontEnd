@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  CartItems: ICartItem[] = [];
+    CartItems:ICartItem[] = []
 
   constructor(private cartService: CartService) {}
 

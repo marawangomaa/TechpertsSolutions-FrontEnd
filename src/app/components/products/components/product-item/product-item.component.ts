@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IProduct } from '../../../../Interfaces/Iproduct';
+import { IProduct } from '../../../../Interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 
 @Component({

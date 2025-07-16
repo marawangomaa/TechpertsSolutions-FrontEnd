@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IProduct } from '../../../Interfaces/Iproduct';
+import { IProduct } from '../../../Interfaces/iproduct';
 
 @Component({
   selector: 'app-category-details',

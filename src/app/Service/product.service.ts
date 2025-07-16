@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Environment } from '../Environment/environment';
-import { IPagedProducts } from '../Interfaces/Iproduct';
+import { IPagedProducts } from '../Interfaces/iproduct';
 
 @Injectable({
   providedIn: 'root'

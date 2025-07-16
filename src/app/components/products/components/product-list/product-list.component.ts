@@ -1,6 +1,6 @@
   import { Component, OnInit } from '@angular/core';
   import { ProductService } from './../../../../Service/product.service';
-  import { IProduct } from '../../../../Interfaces/Iproduct';
+  import { IProduct } from '../../../../Interfaces/iproduct';
   import { ProductItemComponent } from "../product-item/product-item.component";
 import { NgFor } from '@angular/common';
 

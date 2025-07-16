@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IProduct } from '../../../Interfaces/Iproduct';
+import { IProduct } from '../../../Interfaces/iproduct';
 import { NgClass } from '@angular/common';
 
 @Component({

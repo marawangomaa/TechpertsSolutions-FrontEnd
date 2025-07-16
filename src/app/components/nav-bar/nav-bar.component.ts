@@ -36,9 +36,10 @@ export class NavBarComponent {
     }
   }
 
-  toggleCartFlyout() {
-    this._router.navigate(['/cart']);
-  }
+toggleCartFlyout() {
+  this._router.navigate(['/cart'])
+}
+
 
   toggleDarkMode() {
     if (!this._isBrowser) return; // prevent errors on server
