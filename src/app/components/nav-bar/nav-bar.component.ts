@@ -1,42 +1,48 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../Service/cart.service';
-import { CartComponent } from "../cart/cart.component";
-import { NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CartComponent,NgIf],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.css'
+  styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
   isLogedIn: boolean = false;
-
   isDarkMode = false;
-  iconClass = 'bi bi-moon-stars';  // initial icon
-
-  showCartFlyout = false;
+  iconClass = 'bi bi-moon-stars';
   cartCount = 0;
-  _router = inject(Router)
+
+  private _router = inject(Router);
+  private _platformId = inject(PLATFORM_ID);
+  private _isBrowser = isPlatformBrowser(this._platformId);
+  userName : string | null = null;
 
   constructor(private cartService: CartService) { }
 
-
-
   ngOnInit() {
-  this.cartService.getCart().subscribe(items => {
-    this.cartCount = items.reduce((sum, i) => sum + i.quantity, 0);
-  });
-}
+    if (this._isBrowser) {
+      // Only access localStorage if running in the browser
+      this.isLogedIn = !!localStorage.getItem('userToken');
+      this.userName = localStorage.getItem('userName')
 
-toggleCartFlyout() {
-  this._router.navigate(['/cart'])
-}
 
+      this.cartService.getCart().subscribe(items => {
+        this.cartCount = items.reduce((sum, i) => sum + i.quantity, 0);
+      });
+    }
+  }
+
+  toggleCartFlyout() {
+    this._router.navigate(['/cart']);
+  }
 
   toggleDarkMode() {
+    if (!this._isBrowser) return; // prevent errors on server
+
     this.isDarkMode = !this.isDarkMode;
     if (this.isDarkMode) {
       document.body.classList.add('dark-mode');
@@ -45,5 +51,15 @@ toggleCartFlyout() {
       document.body.classList.remove('dark-mode');
       this.iconClass = 'bi bi-moon-stars';
     }
+  }
+
+  logout() {
+    if (!this._isBrowser) return;
+
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('customerId');
+    localStorage.removeItem('userName')
+    this.isLogedIn = false;
+    this._router.navigate(['/login']);
   }
 }

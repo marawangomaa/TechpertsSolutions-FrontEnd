@@ -8,24 +8,24 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-    CartItems:ICartItem[] = []
+  CartItems: ICartItem[] = [];
 
-    constructor(private cartService:CartService){}
+  constructor(private cartService: CartService) {}
 
-    ngOnInit(): void {
-      this.loadCart();
-    }
-    loadCart(): void
-    {
-        this.cartService.getCart().subscribe(items => {
-        this.CartItems = items;
-    }); 
-    }
+  ngOnInit(): void {
+    this.loadCart();
+  }
 
-    addToCart(productId: string, quantity: number): void {
+  loadCart(): void {
+    this.cartService.getCart().subscribe(items => {
+      this.CartItems = items;
+    });
+  }
+
+  addToCart(productId: string, quantity: number): void {
     const item: ICartItem = { productId, quantity };
     this.cartService.addItem(item).subscribe(() => this.loadCart());
   }
@@ -50,6 +50,9 @@ export class CartComponent implements OnInit {
   }
 
   getTotal(): number {
-  return this.CartItems.reduce((sum, item) => sum + (item.Product?.price ?? 0) * item.quantity, 0);
+    return this.CartItems.reduce(
+      (sum, item) => sum + (item.Product?.price ?? 0) * item.quantity,
+      0
+    );
   }
 }

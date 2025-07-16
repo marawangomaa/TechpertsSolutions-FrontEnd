@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IProduct } from '../../../../Interfaces/Iproduct';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-item',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-item.component.html',
   styleUrl: './product-item.component.css'
 })
 export class ProductItemComponent {
-  @Input() productC! : IProduct
+  @Input() product! : IProduct
 }

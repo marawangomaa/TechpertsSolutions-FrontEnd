@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { Environment } from './../Environment/environment';
 
 export interface Product {
   id: string;
@@ -19,43 +21,79 @@ export interface CartItem {
   providedIn: 'root',
 })
 export class CartService {
-  private baseUrl = 'https://your-api-url.com/api/Cart'; // ✅ Replace with your actual API URL
-  private customerId = 'customer-123'; // ✅ Replace with dynamic value or fetch from auth/localStorage
+  private _baseUrl = Environment.baseUrl;
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
-  // GET /api/Cart/{customerId}
+  private getCustomerId(): string | null {
+    if (!this.isBrowser) return null;
+    return localStorage.getItem('customerId');
+  }
+
   getCart(): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(`${this.baseUrl}/${this.customerId}`);
+    if (!this.isBrowser) return of([]); // SSR fallback
+
+    const customerId = this.getCustomerId();
+    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+    
+    return this.http.get<CartItem[]>(`${this._baseUrl}/Cart/${customerId}`);
   }
 
-  // POST /api/Cart/{customerId}/items
   addItem(item: CartItem): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${this.customerId}/items`, item);
+    if (!this.isBrowser) return throwError(() => new Error('Cannot add item on server.'));
+
+    const customerId = this.getCustomerId();
+    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+
+    return this.http.post(`${this._baseUrl}/Cart/${customerId}/items`, item);
   }
 
-  // PUT /api/Cart/{customerId}/items
   updateItem(item: CartItem): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${this.customerId}/items`, item);
+    if (!this.isBrowser) return throwError(() => new Error('Cannot update item on server.'));
+
+    const customerId = this.getCustomerId();
+    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+
+    return this.http.put(`${this._baseUrl}/Cart/${customerId}/items`, item);
   }
 
-  // DELETE /api/Cart/{customerId}/items/{productId}
   removeItem(productId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${this.customerId}/items/${productId}`);
+    if (!this.isBrowser) return throwError(() => new Error('Cannot remove item on server.'));
+
+    const customerId = this.getCustomerId();
+    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+
+    return this.http.delete(`${this._baseUrl}/Cart/${customerId}/items/${productId}`);
   }
 
-  // DELETE /api/Cart/{customerId}/clear
   clearCart(): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${this.customerId}/clear`);
+    if (!this.isBrowser) return throwError(() => new Error('Cannot clear cart on server.'));
+
+    const customerId = this.getCustomerId();
+    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+
+    return this.http.delete(`${this._baseUrl}/Cart/${customerId}/clear`);
   }
 
-  // POST /api/Cart/{customerId}/checkout
   checkout(): Observable<any> {
-    return this.http.post(`${this.baseUrl}/${this.customerId}/checkout`, {});
+    if (!this.isBrowser) return throwError(() => new Error('Cannot checkout on server.'));
+
+    const customerId = this.getCustomerId();
+    if (!customerId) return throwError(() => new Error('Customer ID not found. Please log in.'));
+
+    return this.http.post(`${this._baseUrl}/Cart/${customerId}/checkout`, {});
   }
 
-  // Optional: get total cart value (can be called from component)
   calculateTotal(cartItems: CartItem[]): number {
-    return cartItems.reduce((sum, item) => sum + (item.product?.price ?? 0) * item.quantity, 0);
+    return cartItems.reduce(
+      (sum, item) => sum + (item.product?.price ?? 0) * item.quantity,
+      0
+    );
   }
 }
