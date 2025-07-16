@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IProduct } from '../../../Interfaces/IProduct';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-selector',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass,NgIf],
   templateUrl: './selector.component.html',
   styleUrl: './selector.component.css'
 })
