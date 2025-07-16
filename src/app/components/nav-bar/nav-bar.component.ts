@@ -32,7 +32,7 @@ export class NavBarComponent {
 }
 
 toggleCartFlyout() {
-  this._router.navigate(['/cart'])
+  this._router.navigate(['/cart']);
 }
 
 

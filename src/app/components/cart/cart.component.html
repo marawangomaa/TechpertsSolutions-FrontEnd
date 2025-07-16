@@ -1,29 +1,47 @@
-<!-- Cart Flyout Dropdown -->
-<div class="cart-flyout" *ngIf="CartItems.length > 0; else emptyCart">
-  <h4 class="cart-title">Your Cart</h4>
+<div class="cart-flyout p-4 var(--card-bg) border rounded shadow-lg" *ngIf="CartItems.length > 0; else emptyCart">
+  <h4 class="cart-title mb-4 border-bottom pb-2">🛍️ Your Cart</h4>
 
-  <div class="cart-items">
-    <div class="cart-item" *ngFor="let item of CartItems">
-      <div class="item-details">
-        <strong>{{ item.Product?.name }}</strong><br />
-        <small>Qty: {{ item.quantity }}</small><br />
-        <small>Price: {{ item.Product?.price | currency:'EGP' }}</small>
+  <div class="cart-items mb-4">
+    <div class="cart-item row g-3 align-items-center mb-3 border-bottom pb-3" *ngFor="let item of CartItems">
+      <!-- Image -->
+      <div class="col-3 col-md-2">
+        <img [src]="item.Product?.imageUrl" class="img-fluid rounded" alt="{{ item.Product?.name }}" />
       </div>
-      <button (click)="removeItem(item.productId)">✕</button>
+
+      <!-- Product Info -->
+      <div class="col-9 col-md-10">
+        <h6 class="mb-1">{{ item.Product?.title || item.Product?.name }}</h6>
+        <p class="mb-1 text-muted small">{{ item.Product?.description }}</p>
+        <div class="d-flex flex-wrap align-items-center small">
+          <span class="badge bg-primary me-2 mb-1">{{ item.Product?.category }}</span>
+          <span class="me-3 mb-1">Qty: <strong>{{ item.quantity }}</strong></span>
+          <span class="me-3 mb-1">Price: <strong>{{ item.Product?.price | currency:'EGP' }}</strong></span>
+          <a *ngIf="item.Product?.link" [href]="item.Product?.link" class="text-decoration-none text-info" target="_blank">View Product 🔗</a>
+        </div>
+        <button class="btn btn-sm btn-outline-danger mt-2" (click)="removeItem(item.productId)">Remove ✕</button>
+      </div>
     </div>
   </div>
 
-  <div class="cart-summary">
-    <p>Total: {{ getTotal() | currency:'EGP' }}</p>
+  <!-- Summary -->
+  <div class="cart-summary mb-3 text-end">
+    <p class="fs-5 fw-semibold">Total: <span class="text-success">{{ getTotal() | currency:'EGP' }}</span></p>
   </div>
 
-  <div class="cart-actions">
-    <button (click)="clearCart()">Clear</button>
-    <button (click)="checkout()">Checkout</button>
+  <!-- Actions -->
+  <div class="cart-actions d-flex justify-content-between">
+    <button class="btn btn-outline-secondary" (click)="clearCart()">🗑️ Clear Cart</button>
+    <button class="btn btn-success" (click)="checkout()">💳 Proceed to Checkout</button>
   </div>
 </div>
 
 <!-- Empty Cart Message -->
 <ng-template #emptyCart>
-  <p class="empty-cart">🛒 Your cart is empty.</p>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center p-4 border rounded shadow empty-cart-box">
+      <div class="d-flex flex-column justify-content-center align-items-center h-100">
+        <p class="empty-cart fs-5">🛒 Your cart is empty.</p>
+      </div>
+    </div>
+  </div>
 </ng-template>

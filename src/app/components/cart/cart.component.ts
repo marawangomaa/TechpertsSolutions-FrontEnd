@@ -11,7 +11,36 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-    CartItems:ICartItem[] = []
+    CartItems: ICartItem[] = [
+  {
+    productId: '1',
+    quantity: 2,
+    Product: {
+      id: '1',
+      name: 'Wireless Mouse',
+      description: 'A smooth and responsive wireless mouse.',
+      imageUrl: 'https://th.bing.com/th/id/R.7ab5be847fa93fe08906d2e636cbbc36?rik=zjf2lfuiBXXUGw&pid=ImgRaw&r=0',
+      price: 250,
+      title: 'Logitech M185',
+      link: 'https://th.bing.com/th/id/R.7ab5be847fa93fe08906d2e636cbbc36?rik=zjf2lfuiBXXUGw&pid=ImgRaw&r=0',
+      category: 'Accessories'
+    }
+  },
+  {
+    productId: '2',
+    quantity: 1,
+    Product: {
+      id: '2',
+      name: 'Mechanical Keyboard',
+      description: 'Backlit mechanical keyboard with blue switches.',
+      imageUrl: 'https://tse2.mm.bing.net/th/id/OIP.74butG1TQeRi3WstOY-TWAHaEF?rs=1&pid=ImgDetMain&o=7&rm=3',
+      price: 750,
+      title: 'KeyChron K6',
+      link: 'https://tse2.mm.bing.net/th/id/OIP.74butG1TQeRi3WstOY-TWAHaEF?rs=1&pid=ImgDetMain&o=7&rm=3',
+      category: 'Accessories'
+    }
+  }
+];
 
     constructor(private cartService:CartService){}
 
